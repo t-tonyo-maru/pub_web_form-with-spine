@@ -1,0 +1,17 @@
+@use '../../foundation/variable/color' as *;
+@use '../../foundation/variable/size' as *;
+@use '../../foundation/mixin/media-query-with-tab' as *;
+
+.bl_canvas {
+  height: 100%;
+  width: 100%;
+
+  &_wrapper {
+    background-color: #ddd;
+    border-radius: 9999px;
+    height: 240px;
+    margin: 20px auto 0;
+    overflow: hidden;
+    width: 240px;
+  }
+}

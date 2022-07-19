@@ -31,6 +31,7 @@
 @use './layout/header' as *;
 @use './layout/main' as *;
 @use './layout/footer' as *;
+@use './layout/form' as *;
 
 /* --------------------
       module
@@ -38,16 +39,11 @@
 
 // element
 @use './module/element/btn' as *;
-@use './module/element/banner' as *;
+@use './module/element/text' as *;
 
 // block
-@use './module/block/card' as *;
-@use './module/block/media' as *;
-@use './module/block/pager' as *;
-@use './module/block/horizBtnList' as *;
-@use './module/block/headerCont' as *;
-@use './module/block/footerCont' as *;
-@use './module/block/fixBanner' as *;
+@use './module/block/canvas' as *;
+@use './module/block/formItem' as *;
 
 /* --------------------
       unique
@@ -56,7 +52,7 @@
 /* --------------------
       program
 -------------------- */
-@use './program/fixBanner' as *;
+// @use './program/fixBanner' as *;
 
 /* --------------------
       helper

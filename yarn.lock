@@ -325,6 +325,18 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"
   integrity sha512-Fxt+AfXgjMoin2maPIYzFZnQjAXjAL0PHscM5pRTtatFqB+vZxAM9tLp2Optnuw3QOQC40jTNeGYFOMvyf7v9g==
 
+"@esotericsoftware/spine-core@^4.1.19":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@esotericsoftware/spine-core/-/spine-core-4.2.4.tgz#a38744c9973f6668b86e7dc80e558b25d6611be3"
+  integrity sha512-tOgG+HFVuy0Ey91fj1jWEqNaKRVkSc3sZEMw8xfREN8eKsq7IRDxmG4e+o5ENGlEvQaGYh+JQBu3KqzMfWLFTw==
+
+"@esotericsoftware/spine-webgl@4.1.19":
+  version "4.1.19"
+  resolved "https://registry.yarnpkg.com/@esotericsoftware/spine-webgl/-/spine-webgl-4.1.19.tgz#317af0b6b8f9655930e0ab8719f6aea143c458d0"
+  integrity sha512-p0sGVLFTJS1HAtbtBAR53gSRCyGa/1J5N1qlIVtLWWf4Hd/xGq658tiNoYKi2Ees1IV4jCP2RabltC/B4URSQw==
+  dependencies:
+    "@esotericsoftware/spine-core" "^4.1.19"
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -669,13 +681,6 @@
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.3.2.tgz#fc8c2825e4ed2142473b4a81064e6e081463d1b3"
   integrity sha512-eI5Yrz3Qv4KPUa/nSIAi0h+qX0XyewOliug5F2QAtuRg6Kjg6jfmxe1GIwoIRhZspD1A0RP8ANrPwvEXXtRFog==
-
-"@types/ramda@^0.27.64":
-  version "0.27.64"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.64.tgz#7e23f2bf7b9729bcbd59223f100460ead6829008"
-  integrity sha512-EDf++ss/JoMiDpvT1MuA8oi88OwpvmqVE+o8Ojm5v/5bdJEPZ6eIQd/XYAeQ0imlwG6Tf0Npfq4Z9w3hAKBk9Q==
-  dependencies:
-    ts-toolbelt "^6.15.1"
 
 "@types/stack-utils@^2.0.0":
   version "2.0.1"
@@ -4719,11 +4724,6 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-ramda@^0.28.0:
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.28.0.tgz#acd785690100337e8b063cab3470019be427cc97"
-  integrity sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==
-
 randomatic@^3.0.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.1.1.tgz#b776efc59375984e36c537b2f51a1f0aff0da1ed"
@@ -5668,11 +5668,6 @@ ts-loader@^9.2.5:
     enhanced-resolve "^5.0.0"
     micromatch "^4.0.0"
     semver "^7.3.4"
-
-ts-toolbelt@^6.15.1:
-  version "6.15.5"
-  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.15.5.tgz#cb3b43ed725cb63644782c64fbcad7d8f28c0a83"
-  integrity sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==
 
 type-check@~0.3.2:
   version "0.3.2"

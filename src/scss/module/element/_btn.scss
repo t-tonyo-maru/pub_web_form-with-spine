@@ -1,18 +1,21 @@
 @use '../../foundation/variable/color' as *;
+@use '../../foundation/function/rem' as *;
 
 .el_btn {
   background-color: $colorKey;
   border: 2px solid transparent;
+  border-radius: 4px;
   color: #fff;
+  cursor: pointer;
   display: inline-block;
-  font-size: 1.125rem;
+  font-size: rem(16);
   max-width: 100%;
   outline: none;
-  padding: 20px 10px;
+  padding: 0.8em 0.6em;
   text-align: center;
   text-decoration: none;
   transition: 0.25s;
-  width: 300px;
+  width: 100%;
 
   &:focus,
   &:hover {
@@ -21,25 +24,18 @@
     color: $colorKey;
   }
 
-  &#{&}__round {
-    border-radius: 10px;
-  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: gray;
+    border: 2px solid gray;
 
-  &#{&}__large {
-    font-size: 1.375rem;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    width: 340px;
-  }
-
-  &#{&}__waring {
-    background-color: #ffdb4a;
-    color: rgba(0, 0, 0, 0.7);
-    &:focus,
     &:hover {
-      background-color: #fff;
-      border-color: currentColor;
-      color: #ffdb4a;
+      color: #fff;
     }
+  }
+
+  &_wrapper {
+    margin: 28px auto 0;
+    width: 200px;
   }
 }

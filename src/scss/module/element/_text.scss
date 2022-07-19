@@ -1,0 +1,10 @@
+@use '../../foundation/variable/color' as *;
+@use '../../foundation/function/rem' as *;
+
+.el_text {
+  color: #fff;
+  font-size: rem(12);
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+}

@@ -1,0 +1,51 @@
+@use '../../foundation/variable/color' as *;
+@use '../../foundation/variable/size' as *;
+@use '../../foundation/function/rem' as *;
+
+.bl_formItem {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &_label {
+    font-size: rem(14);
+    line-height: 1;
+
+    strong {
+      font-weight: bold;
+    }
+  }
+
+  &_input {
+    border: 1px solid gray;
+    border-radius: 6px;
+    font-size: rem(18);
+    line-height: 1;
+    padding: 0.4em 0.2em;
+    margin-top: 4px;
+  }
+
+  &_cap {
+    font-size: rem(12);
+    font-weight: bold;
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+
+  &_err {
+    color: red;
+    font-size: rem(12);
+    font-weight: bold;
+    line-height: 1.4;
+    margin-top: 4px;
+
+    &.js-hidden {
+      display: none;
+    }
+  }
+}
