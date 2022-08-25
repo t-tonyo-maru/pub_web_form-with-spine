@@ -15,10 +15,6 @@
   &_label {
     font-size: rem(14);
     line-height: 1;
-
-    strong {
-      font-weight: bold;
-    }
   }
 
   &_input {
@@ -28,24 +24,16 @@
     line-height: 1;
     padding: 0.4em 0.2em;
     margin-top: 4px;
+    &::placeholder {
+      color: #bbb;
+    }
   }
 
   &_cap {
-    font-size: rem(12);
-    font-weight: bold;
-    line-height: 1.4;
-    margin-top: 4px;
-  }
-
-  &_err {
     color: red;
     font-size: rem(12);
     font-weight: bold;
     line-height: 1.4;
     margin-top: 4px;
-
-    &.js-hidden {
-      display: none;
-    }
   }
 }
