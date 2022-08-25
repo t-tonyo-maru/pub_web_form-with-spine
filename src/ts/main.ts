@@ -17,10 +17,6 @@ window.onload = () => {
   const form = document.querySelector('.js_form') as Element
   const inputUserId = document.querySelector('.js_userId') as Element
   const inputPassword = document.querySelector('.js_password') as Element
-  const errorTextUserId = document.querySelector('.js_userId_err') as Element
-  const errorTextPassword = document.querySelector(
-    '.js_password_err'
-  ) as Element
 
   // バリデーション結果
   let isValidUserId = false
@@ -36,21 +32,11 @@ window.onload = () => {
   inputUserId.addEventListener('blur', (event) => {
     const userId = (event.target as HTMLInputElement).value
     isValidUserId = userId.length > 0
-    if (isValidUserId) {
-      errorTextUserId.classList.add('js-hidden')
-    } else {
-      errorTextUserId.classList.remove('js-hidden')
-    }
   })
 
   // パスワードのイベントセット
   inputPassword.addEventListener('blur', (event) => {
     const password = (event.target as HTMLInputElement).value
     isValidPassword = getIsValidPassword(password)
-    if (isValidPassword) {
-      errorTextPassword.classList.add('js-hidden')
-    } else {
-      errorTextPassword.classList.remove('js-hidden')
-    }
   })
 }
