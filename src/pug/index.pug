@@ -14,30 +14,20 @@ block body
       form.ly_form.js_form
         .ly_form_inner
           .bl_formItem
-            label.bl_formItem_label(for="name")
-              |ユーザーID
-              strong &nbsp;(必須)
+            label.bl_formItem_label(for="name") User Name
             input.bl_formItem_input.js_userId(
                 type="text"
-                value=""
                 id="name"
-                placeholder="ユーザーIDを入力してください"
+                placeholder="Input user name"
               )
-            span.bl_formItem_err.js_userId_err.js-hidden ※ユーザーIDを入力してください!
           .bl_formItem
-            label.bl_formItem_label(for="password")
-              |パスワード
-              strong &nbsp;(必須)
+            label.bl_formItem_label(for="password") Password
             span.bl_formItem_cap 半角の大小英文字、数字を組み合わせた8文字以上のパスワードを入力してください
             input.bl_formItem_input.js_password(
                 type="password"
-                value=""
                 id="password"
-                placeholder="パスワードを入力してください"
+                placeholder="Input password"
               )
-            span.bl_formItem_err.js_password_err.js-hidden ※パスワードが正しくありません!
-          .el_btn_wrapper
-            button.el_btn.js_btn(type="submit" disabled) 送信
     include ./_parts/_footer
 block append script
   script(src=`${path}assets/js/main.js`)

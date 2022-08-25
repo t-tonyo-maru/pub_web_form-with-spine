@@ -3,6 +3,7 @@ import * as spine from '@esotericsoftware/spine-webgl'
 export class SpineApp implements spine.SpineCanvasApp {
   private skeleton: unknown // type: spine.Skeleton
   private state: unknown // type: spine.AnimationState
+  private pixelRatio: number = window.devicePixelRatio || 1
 
   loadAssets = (canvas: spine.SpineCanvas) => {
     // atlas ファイルをロード
@@ -22,17 +23,21 @@ export class SpineApp implements spine.SpineCanvasApp {
     // skeleton(json 形式) を読み込むためのオブジェクトを生成
     const skeltonJson = new spine.SkeletonJson(atlasLoader)
     // skeleton 情報を読み込み
-    const skeltonData = skeltonJson.readSkeletonData(assetManager.require('model.json'))
+    const skeltonData = skeltonJson.readSkeletonData(
+      assetManager.require('model.json')
+    )
     // skeleton インスタンスを生成して、メンバにセット
     this.skeleton = new spine.Skeleton(skeltonData)
 
     if (this.skeleton instanceof spine.Skeleton) {
-      // skeleton の位置を画面中央にセット
-      this.skeleton.x = 0
-      this.skeleton.y = (-1 * Math.floor(this.skeleton.data.height)) / 2
       // skeleton の大きさを等倍にセット
-      this.skeleton.scaleX = 1
-      this.skeleton.scaleY = 1
+      this.skeleton.scaleX = 0.7 * this.pixelRatio
+      this.skeleton.scaleY = 0.7 * this.pixelRatio
+      // skeleton の位置をセット
+      this.skeleton.x = 0
+      this.skeleton.y =
+        (-1 * Math.floor(this.skeleton.data.height * 1.06 * this.pixelRatio)) /
+        2
     }
 
     // skeleton 情報からアニメーション情報を取得
@@ -40,13 +45,31 @@ export class SpineApp implements spine.SpineCanvasApp {
     // アニメーションをセット
     this.state = new spine.AnimationState(stateData)
     if (this.state instanceof spine.AnimationState) {
-      this.state.setAnimation(0, 'animation', true)
+      this.state.setAnimation(0, 'idle', true)
     }
   }
 
   update = (canvas: spine.SpineCanvas, delta: number) => {
     if (!(this.skeleton instanceof spine.Skeleton)) return
     if (!(this.state instanceof spine.AnimationState)) return
+
+    // 画面の中心
+    const center = {
+      x: canvas.gl.drawingBufferWidth / this.pixelRatio / 2,
+      y: canvas.gl.drawingBufferHeight / this.pixelRatio / 2
+    }
+    // 画面の中心・マウス位置のベクトルを算出
+    const vecPositoin = {
+      x: canvas.input.mouseX - center.x,
+      y: canvas.input.mouseY - center.y
+    }
+    // ベクトルのサイズを取得
+    const vecSize = Math.sqrt(vecPositoin.x ** 2 + vecPositoin.y ** 2)
+    // ベクトルを正規化
+    const vecNormalize = {
+      x: vecPositoin.x / vecSize,
+      y: vecPositoin.y / vecSize
+    }
 
     // アニメーションを更新
     this.state.update(delta)
