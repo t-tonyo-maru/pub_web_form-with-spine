@@ -1,9 +1,12 @@
 import * as spine from '@esotericsoftware/spine-webgl'
+import { Form } from '../modules/Form'
 
 export class SpineApp implements spine.SpineCanvasApp {
   private skeleton: unknown // type: spine.Skeleton
   private state: unknown // type: spine.AnimationState
   private pixelRatio: number = window.devicePixelRatio || 1
+
+  // constructor() {}
 
   loadAssets = (canvas: spine.SpineCanvas) => {
     // atlas ファイルをロード
