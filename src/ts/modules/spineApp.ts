@@ -77,9 +77,12 @@ export class SpineApp implements spine.SpineCanvasApp {
 
     // this.animations[3].alpha = 0.009
     // this.animations[4].alpha = 0.009
+    // this.animations[0].alpha = 1
     // this.animations[7].alpha = 1
 
-    console.log(this.animations)
+    // console.log(this.skeleton)
+    console.log(this.state)
+    // console.log(this.animations)
 
     // 画面の中心
     const center = {
