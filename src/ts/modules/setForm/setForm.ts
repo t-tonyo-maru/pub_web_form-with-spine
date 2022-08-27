@@ -27,5 +27,8 @@ export const setForm = ({
   return {
     getisValidUserId: () => isValidUserId,
     getisValidPassword: () => isValidPassword
+    // バリデーション情報を取得
+    getIsValidUserId: () => isValidUserId,
+    getIsValidPassword: () => isValidPassword
   }
 }
