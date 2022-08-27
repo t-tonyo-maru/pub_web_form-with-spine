@@ -58,7 +58,7 @@ export class SpineApp implements spine.SpineCanvasApp {
     this.animations.push(this.state.setAnimation(5, 'kazari', false))
     this.animations.push(this.state.setAnimation(6, 'shake_head_h', false))
     this.animations.push(this.state.setAnimation(7, 'shake_head_v', false))
-    // this.animations.push(this.state.setAnimation(8, 'turn_pale', false))
+    this.animations.push(this.state.setAnimation(8, 'turn_pale', false))
 
     this.animations.forEach((animation, index) => {
       if (index !== 0) {
