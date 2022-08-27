@@ -1,6 +1,11 @@
 // modules
-import { getIsValidPassword } from '../getIsValidPassword/getIsValidPassword'
+import { getResultOfValidPassword } from '../getResultOfValidPassword/getResultOfValidPassword'
 
+/**
+ * input要素を制御するオブジェクトを生成する
+ * @param {Element} inputUserIdEl ユーザーIDのinput要素
+ * @param {Element} inputPasswordEl パスワードのinput要素
+ */
 export const setForm = ({
   inputUserIdEl,
   inputPasswordEl
@@ -40,15 +45,34 @@ export const setForm = ({
     isFocusPasswordEl = false
     // バリデーション情報を更新
     const password = (event.target as HTMLInputElement).value
-    isValidPassword = getIsValidPassword(password)
+    isValidPassword = getResultOfValidPassword(password)
   })
 
+  /**
+   * ユーザーIDを入力中かを取得
+   * @return {boolean}
+   */
+  const getIsFocusUserIdEl = () => isFocusUserIdEl
+  /**
+   * パスワードを入力中かを取得
+   * @return {boolean}
+   */
+  const getIsFocusPasswordEl = () => isFocusPasswordEl
+  /**
+   * ユーザーIDのバリデーション結果を取得
+   * @return {boolean}
+   */
+  const getIsValidUserId = () => isValidUserId
+  /**
+   * パスワードのバリデーション結果を取得
+   * @return {boolean}
+   */
+  const getIsValidPassword = () => isValidPassword
+
   return {
-    // 入力中かを取得
-    getIsFocusUserIdEl: () => isFocusUserIdEl,
-    getIsFocusPasswordEl: () => isFocusPasswordEl,
-    // バリデーション情報を取得
-    getIsValidUserId: () => isValidUserId,
-    getIsValidPassword: () => isValidPassword
+    getIsFocusUserIdEl,
+    getIsFocusPasswordEl,
+    getIsValidUserId,
+    getIsValidPassword
   }
 }
