@@ -3,22 +3,23 @@ import { getResultOfValidPassword } from './getResultOfValidPassword/getResultOf
 
 /**
  * input要素を制御するオブジェクトを生成する
- * @param {Element} inputUserIdEl ユーザーIDのinput要素
- * @param {Element} inputPasswordEl パスワードのinput要素
  */
-
 export class Form {
   // ユーザーID input要素
   private inputUserIdEl: Element
   // パスワード input要素
   private inputPasswordEl: Element
+  // input の値
+  private userIdValue: string = ''
+  private passwordValue: string = ''
   // 入力中か
   private isFocusUserIdEl: boolean = false
   private isFocusPasswordEl: boolean = false
-  // バリデーション結果
-  private isValidUserId: boolean = false
-  private isValidPassword: boolean = false
 
+  /**
+   * @param {Element} inputUserIdEl ユーザーIDのinput要素
+   * @param {Element} inputPasswordEl パスワードのinput要素
+   */
   constructor({
     inputUserIdEl,
     inputPasswordEl
@@ -40,11 +41,8 @@ export class Form {
       this.isFocusUserIdEl = true
     })
     this.inputUserIdEl.addEventListener('blur', (event) => {
-      // 非入力中状態に更新
       this.isFocusUserIdEl = false
-      // バリデーション情報を更新
-      const userId = (event.target as HTMLInputElement).value
-      this.isValidUserId = userId.length > 0
+      this.userIdValue = (event.target as HTMLInputElement).value
     })
 
     // パスワードのイベントセット
@@ -52,11 +50,8 @@ export class Form {
       this.isFocusPasswordEl = true
     })
     this.inputPasswordEl.addEventListener('blur', (event) => {
-      // 非入力中状態に更新
       this.isFocusPasswordEl = false
-      // バリデーション情報を更新
-      const password = (event.target as HTMLInputElement).value
-      this.isValidPassword = getResultOfValidPassword(password)
+      this.passwordValue = (event.target as HTMLInputElement).value
     })
   }
 
@@ -72,13 +67,24 @@ export class Form {
   getIsFocusPasswordEl = () => this.isFocusPasswordEl
 
   /**
+   * ユーザーIDの値を取得
+   * @return {boolean}
+   */
+  getUserIdValue = () => this.userIdValue
+  /**
+   * パスワードの値を取得
+   * @return {boolean}
+   */
+  getPasswordValue = () => this.passwordValue
+
+  /**
    * ユーザーIDのバリデーション結果を取得
    * @return {boolean}
    */
-  getIsValidUserId = () => this.isValidUserId
+  getIsValidUserId = () => this.userIdValue.length > 0
   /**
    * パスワードのバリデーション結果を取得
    * @return {boolean}
    */
-  getIsValidPassword = () => this.isValidPassword
+  getIsValidPassword = () => getResultOfValidPassword(this.passwordValue)
 }
