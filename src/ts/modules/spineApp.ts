@@ -1,12 +1,15 @@
 import * as spine from '@esotericsoftware/spine-webgl'
-import { Form } from '../modules/Form'
+import { Form } from '../modules/form'
 
 export class SpineApp implements spine.SpineCanvasApp {
   private skeleton: unknown // type: spine.Skeleton
   private state: unknown // type: spine.AnimationState
   private pixelRatio: number = window.devicePixelRatio || 1
+  private form: Form
 
-  // constructor() {}
+  constructor({ form }: { form: Form }) {
+    this.form = form
+  }
 
   loadAssets = (canvas: spine.SpineCanvas) => {
     // atlas ファイルをロード
@@ -55,6 +58,11 @@ export class SpineApp implements spine.SpineCanvasApp {
   update = (canvas: spine.SpineCanvas, delta: number) => {
     if (!(this.skeleton instanceof spine.Skeleton)) return
     if (!(this.state instanceof spine.AnimationState)) return
+
+    console.log(
+      'this.form.getIsFocusPasswordEl(): ',
+      this.form.getIsFocusPasswordEl()
+    )
 
     // 画面の中心
     const center = {
