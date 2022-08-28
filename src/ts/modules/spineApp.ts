@@ -68,12 +68,27 @@ export class SpineApp implements spine.SpineCanvasApp {
     const listener: spine.AnimationStateListener = {
       complete: (entry: spine.TrackEntry) => {
         if (!(this.state instanceof spine.AnimationState)) return
-        if (entry.trackIndex === 4) this.state.clearTrack(4)
+        if (entry.trackIndex !== 4) return
+        this.state.clearTrack(4)
+
+        // 初回入力以降
+        if (!this.form.getIsDoneInitialInput()) return
+        if (this.form.getIsValidUserId() && this.form.getIsValidPassword()) {
+          this.state.setEmptyAnimation(5)
+          console.log('hogehogehoge')
+        } else {
+          this.state.setAnimation(5, 'disappointed', false)
+        }
       }
     }
     this.state.addListener(listener)
 
     // ユーザーIDのinput要素にイベントを設設定
+    // focus
+    this.form.getInputUserIdEl().addEventListener('focus', () => {
+      if (!(this.state instanceof spine.AnimationState)) return
+      this.state.setEmptyAnimation(5)
+    })
     // blur
     this.form.getInputUserIdEl().addEventListener('blur', () => {
       if (!(this.state instanceof spine.AnimationState)) return
@@ -89,7 +104,7 @@ export class SpineApp implements spine.SpineCanvasApp {
     // focus
     this.form.getInputPasswordEl().addEventListener('focus', () => {
       if (!(this.state instanceof spine.AnimationState)) return
-
+      // this.state.setEmptyAnimation(5)
       this.animations[1].alpha = this.animations[2].alpha = 0
       this.state.setAnimation(3, 'close_eye', true)
     })
@@ -155,15 +170,5 @@ export class SpineApp implements spine.SpineCanvasApp {
     } else {
       this.animations[1].alpha = this.animations[2].alpha = 0
     }
-
-    // if (this.form.getIsDoneInitialInput()) {
-    //   if (this.form.getIsValidUserId() && this.form.getIsValidPassword()) {
-    //     state.setAnimation(5, 'laugh', false)
-    //     state.setAnimation(6, 'kazari', true)
-    //   } else {
-    //     state.setAnimation(5, 'disappointed', false)
-    //     state.clearTrack(6)
-    //   }
-    // }
   }
 }
