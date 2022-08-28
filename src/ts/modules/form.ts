@@ -15,6 +15,9 @@ export class Form {
   // 入力中か
   private isFocusUserIdEl: boolean = false
   private isFocusPasswordEl: boolean = false
+  // はじめての入力が完了したか
+  private isInitialInputUserId: boolean = false
+  private isInitialInputPassword: boolean = false
 
   /**
    * @param {Element} inputUserIdEl ユーザーIDのinput要素
@@ -34,8 +37,11 @@ export class Form {
     this.inputUserIdEl.addEventListener('focus', () => {
       this.isFocusUserIdEl = true
     })
-    this.inputUserIdEl.addEventListener('blur', () => {
+    this.inputUserIdEl.addEventListener('blur', (event) => {
       this.isFocusUserIdEl = false
+      this.userIdValue = (event.target as HTMLInputElement).value
+
+      if (!this.isInitialInputUserId) this.isInitialInputUserId = true
     })
     this.inputUserIdEl.addEventListener('keydown', (event) => {
       this.userIdValue = (event.target as HTMLInputElement).value
@@ -48,10 +54,9 @@ export class Form {
     this.inputPasswordEl.addEventListener('blur', (event) => {
       this.isFocusPasswordEl = false
       this.passwordValue = (event.target as HTMLInputElement).value
+
+      if (!this.isInitialInputPassword) this.isInitialInputPassword = true
     })
-    // this.inputPasswordEl.addEventListener('keydown', (event) => {
-    //   this.passwordValue = (event.target as HTMLInputElement).value
-    // })
   }
 
   /**
@@ -93,4 +98,10 @@ export class Form {
    * @return {boolean}
    */
   getIsValidPassword = () => getResultOfValidPassword(this.passwordValue)
+
+  /**
+   * ユーザーID/パスワードのはじめての入力が完了したか
+   * @return {boolean}
+   */
+  getIsDoneInitialInput = () => this.isInitialInputUserId && this.isInitialInputPassword
 }

@@ -64,46 +64,35 @@ export class SpineApp implements spine.SpineCanvasApp {
       if (index !== 0) animation.alpha = 0
     })
 
-    this.state.addListener = (listener: spine.AnimationStateListener) => {
-      listener.end = (entry: spine.TrackEntry) => {
-        console.log(entry)
-        console.log('end')
-      }
-      listener.complete = (entry: spine.TrackEntry) => {
-        console.log(entry)
-        console.log('complete')
+    // アニメーション完了後にコールバックを設定
+    const listener: spine.AnimationStateListener = {
+      complete: (entry: spine.TrackEntry) => {
+        if (!(this.state instanceof spine.AnimationState)) return
+        if (entry.trackIndex === 4) this.state.clearTrack(4)
       }
     }
+    this.state.addListener(listener)
 
+    // ユーザーIDのinput要素にイベントを設設定
     this.form.getInputUserIdEl().addEventListener('blur', () => {
-      // console.log('set event')
+      const state = this.state
+      if (!(state instanceof spine.AnimationState)) return
+
+      if (this.form.getIsValidUserId()) {
+        state.setAnimation(4, 'shake_head_v', false)
+      } else {
+        state.setAnimation(4, 'shake_head_h', false)
+      }
     })
+    // パスワードのinput要素にイベントを設設定
     this.form.getInputPasswordEl().addEventListener('blur', () => {
       const state = this.state
       if (!(state instanceof spine.AnimationState)) return
-      const shakeAnimation = this.form.getIsValidPassword()
-        ? state.setAnimation(4, 'shake_head_v', false)
-        : state.setAnimation(4, 'shake_head_h', false)
-
-      const track4 = state.tracks[4]
-      if (track4 === null) return
-
-      // console.log(state.addListener)
-
-      // const listener = track4.listener === null ? {} : track4.listener
-      // listener.complete = () => {
-      //   console.log('hoge')
-      // }
-
-      // console.log(state)
-      // console.log(shakeAnimation)
-
-      // shakeAnimation.listener.complete = (entry) => {
-      //   console.log('entry: ', entry)
-      //   state.setAnimation(4, 'shake_head_v', false)
-      //   state.clearTrack(4)
-      //   state.setAnimation(0, 'idle', true)
-      // }
+      if (this.form.getIsValidPassword()) {
+        state.setAnimation(4, 'shake_head_v', false)
+      } else {
+        state.setAnimation(4, 'shake_head_h', false)
+      }
     })
 
     this.state.apply(this.skeleton)
@@ -157,20 +146,21 @@ export class SpineApp implements spine.SpineCanvasApp {
       this.animations[1].alpha = this.animations[2].alpha = 0
     }
 
+    // if (this.form.getIsDoneInitialInput()) {
+    //   if (this.form.getIsValidUserId() && this.form.getIsValidPassword()) {
+    //     state.setAnimation(5, 'laugh', false)
+    //     state.setAnimation(6, 'kazari', true)
+    //   } else {
+    //     state.setAnimation(5, 'disappointed', false)
+    //     state.clearTrack(6)
+    //   }
+    // }
+
     if (this.form.getIsFocusPasswordEl()) {
       this.animations[1].alpha = this.animations[2].alpha = 0
       state.setAnimation(3, 'close_eye', true)
     } else {
-      state.setEmptyAnimation(3)
+      state.clearTrack(3)
     }
-
-    // const alpha = this.animations[1].alpha
-    // if (alpha >= 1) this.animations[1].alpha -= 0.01
-    // if (alpha <= 0) this.animations[1].alpha += 0.01
-    // console.log(delta)
-
-    // console.log(this.skeleton)
-    // console.log(this.state)
-    // console.log(this.animations)
   }
 }
