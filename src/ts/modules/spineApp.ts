@@ -75,23 +75,21 @@ export class SpineApp implements spine.SpineCanvasApp {
 
     // ユーザーIDのinput要素にイベントを設設定
     this.form.getInputUserIdEl().addEventListener('blur', () => {
-      const state = this.state
-      if (!(state instanceof spine.AnimationState)) return
+      if (!(this.state instanceof spine.AnimationState)) return
 
       if (this.form.getIsValidUserId()) {
-        state.setAnimation(4, 'shake_head_v', false)
+        this.state.setAnimation(4, 'shake_head_v', false)
       } else {
-        state.setAnimation(4, 'shake_head_h', false)
+        this.state.setAnimation(4, 'shake_head_h', false)
       }
     })
     // パスワードのinput要素にイベントを設設定
     this.form.getInputPasswordEl().addEventListener('blur', () => {
-      const state = this.state
-      if (!(state instanceof spine.AnimationState)) return
+      if (!(this.state instanceof spine.AnimationState)) return
       if (this.form.getIsValidPassword()) {
-        state.setAnimation(4, 'shake_head_v', false)
+        this.state.setAnimation(4, 'shake_head_v', false)
       } else {
-        state.setAnimation(4, 'shake_head_h', false)
+        this.state.setAnimation(4, 'shake_head_h', false)
       }
     })
 
