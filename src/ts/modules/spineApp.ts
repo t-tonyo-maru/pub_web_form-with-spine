@@ -69,8 +69,10 @@ export class SpineApp implements spine.SpineCanvasApp {
 
     const listener: spine.AnimationStateListener = {
       end: (entry: spine.TrackEntry) => {
-        console.log(entry)
-        console.log('end')
+        if (!(this.state instanceof spine.AnimationState)) return
+
+        console.log(entry.trackIndex === 4 ? 4 : '')
+        if (entry.trackIndex === 4) this.state.clearTrack(4)
       }
     }
     this.state.addListener(listener)
@@ -81,6 +83,7 @@ export class SpineApp implements spine.SpineCanvasApp {
       const shakeAnimation = this.form.getIsValidUserId()
         ? state.setAnimation(4, 'shake_head_v', false)
         : state.setAnimation(4, 'shake_head_h', false)
+      // shakeAnimation.next = state.setAnimation(0, 'idle', true)
 
       // state.clearTrack(4)
     })
