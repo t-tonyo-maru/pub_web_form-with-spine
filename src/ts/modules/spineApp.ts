@@ -64,19 +64,25 @@ export class SpineApp implements spine.SpineCanvasApp {
       if (index !== 0) animation.alpha = 0
     })
 
-    this.state.addListener = (listener: spine.AnimationStateListener) => {
-      listener.end = (entry: spine.TrackEntry) => {
+    // console.log(this.skeleton)
+    // console.log(this.state)
+
+    const listener: spine.AnimationStateListener = {
+      end: (entry: spine.TrackEntry) => {
         console.log(entry)
         console.log('end')
       }
-      listener.complete = (entry: spine.TrackEntry) => {
-        console.log(entry)
-        console.log('complete')
-      }
     }
+    this.state.addListener(listener)
 
     this.form.getInputUserIdEl().addEventListener('blur', () => {
-      // console.log('set event')
+      const state = this.state
+      if (!(state instanceof spine.AnimationState)) return
+      const shakeAnimation = this.form.getIsValidUserId()
+        ? state.setAnimation(4, 'shake_head_v', false)
+        : state.setAnimation(4, 'shake_head_h', false)
+
+      // state.clearTrack(4)
     })
     this.form.getInputPasswordEl().addEventListener('blur', () => {
       const state = this.state
@@ -85,25 +91,7 @@ export class SpineApp implements spine.SpineCanvasApp {
         ? state.setAnimation(4, 'shake_head_v', false)
         : state.setAnimation(4, 'shake_head_h', false)
 
-      const track4 = state.tracks[4]
-      if (track4 === null) return
-
-      // console.log(state.addListener)
-
-      // const listener = track4.listener === null ? {} : track4.listener
-      // listener.complete = () => {
-      //   console.log('hoge')
-      // }
-
-      // console.log(state)
-      // console.log(shakeAnimation)
-
-      // shakeAnimation.listener.complete = (entry) => {
-      //   console.log('entry: ', entry)
-      //   state.setAnimation(4, 'shake_head_v', false)
-      //   state.clearTrack(4)
-      //   state.setAnimation(0, 'idle', true)
-      // }
+      // state.clearTrack(4)
     })
 
     this.state.apply(this.skeleton)
