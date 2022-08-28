@@ -64,14 +64,13 @@ export class SpineApp implements spine.SpineCanvasApp {
       if (index !== 0) animation.alpha = 0
     })
 
-    // console.log(this.skeleton)
-    // console.log(this.state)
-
     const listener: spine.AnimationStateListener = {
-      end: (entry: spine.TrackEntry) => {
+      // start: (entry: spine.TrackEntry) => {
+      //   if (!(this.state instanceof spine.AnimationState)) return
+      //   console.log(entry.trackIndex)
+      // },
+      complete: (entry: spine.TrackEntry) => {
         if (!(this.state instanceof spine.AnimationState)) return
-
-        console.log(entry.trackIndex === 4 ? 4 : '')
         if (entry.trackIndex === 4) this.state.clearTrack(4)
       }
     }
@@ -80,21 +79,21 @@ export class SpineApp implements spine.SpineCanvasApp {
     this.form.getInputUserIdEl().addEventListener('blur', () => {
       const state = this.state
       if (!(state instanceof spine.AnimationState)) return
-      const shakeAnimation = this.form.getIsValidUserId()
-        ? state.setAnimation(4, 'shake_head_v', false)
-        : state.setAnimation(4, 'shake_head_h', false)
-      // shakeAnimation.next = state.setAnimation(0, 'idle', true)
 
-      // state.clearTrack(4)
+      if (this.form.getIsValidUserId()) {
+        state.setAnimation(4, 'shake_head_v', false)
+      } else {
+        state.setAnimation(4, 'shake_head_h', false)
+      }
     })
     this.form.getInputPasswordEl().addEventListener('blur', () => {
       const state = this.state
       if (!(state instanceof spine.AnimationState)) return
-      const shakeAnimation = this.form.getIsValidPassword()
-        ? state.setAnimation(4, 'shake_head_v', false)
-        : state.setAnimation(4, 'shake_head_h', false)
-
-      // state.clearTrack(4)
+      if (this.form.getIsValidPassword()) {
+        state.setAnimation(4, 'shake_head_v', false)
+      } else {
+        state.setAnimation(4, 'shake_head_h', false)
+      }
     })
 
     this.state.apply(this.skeleton)
