@@ -20,13 +20,7 @@ export class Form {
    * @param {Element} inputUserIdEl ユーザーIDのinput要素
    * @param {Element} inputPasswordEl パスワードのinput要素
    */
-  constructor({
-    inputUserIdEl,
-    inputPasswordEl
-  }: {
-    inputUserIdEl: Element
-    inputPasswordEl: Element
-  }) {
+  constructor({ inputUserIdEl, inputPasswordEl }: { inputUserIdEl: Element; inputPasswordEl: Element }) {
     this.inputUserIdEl = inputUserIdEl
     this.inputPasswordEl = inputPasswordEl
     this.setEvent()
@@ -40,8 +34,10 @@ export class Form {
     this.inputUserIdEl.addEventListener('focus', () => {
       this.isFocusUserIdEl = true
     })
-    this.inputUserIdEl.addEventListener('blur', (event) => {
+    this.inputUserIdEl.addEventListener('blur', () => {
       this.isFocusUserIdEl = false
+    })
+    this.inputUserIdEl.addEventListener('keydown', (event) => {
       this.userIdValue = (event.target as HTMLInputElement).value
     })
 
@@ -53,7 +49,17 @@ export class Form {
       this.isFocusPasswordEl = false
       this.passwordValue = (event.target as HTMLInputElement).value
     })
+    // this.inputPasswordEl.addEventListener('keydown', (event) => {
+    //   this.passwordValue = (event.target as HTMLInputElement).value
+    // })
   }
+
+  /**
+   * input 要素を取得
+   * @return {Element}
+   */
+  getInputUserIdEl = () => this.inputUserIdEl
+  getInputPasswordEl = () => this.inputPasswordEl
 
   /**
    * ユーザーIDを入力中かを取得
