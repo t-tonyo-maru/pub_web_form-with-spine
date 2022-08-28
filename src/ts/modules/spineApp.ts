@@ -64,6 +64,7 @@ export class SpineApp implements spine.SpineCanvasApp {
       if (index !== 0) animation.alpha = 0
     })
 
+    // アニメーション完了後にコールバックを設定
     const listener: spine.AnimationStateListener = {
       complete: (entry: spine.TrackEntry) => {
         if (!(this.state instanceof spine.AnimationState)) return
@@ -72,6 +73,7 @@ export class SpineApp implements spine.SpineCanvasApp {
     }
     this.state.addListener(listener)
 
+    // ユーザーIDのinput要素にイベントを設設定
     this.form.getInputUserIdEl().addEventListener('blur', () => {
       const state = this.state
       if (!(state instanceof spine.AnimationState)) return
@@ -82,6 +84,7 @@ export class SpineApp implements spine.SpineCanvasApp {
         state.setAnimation(4, 'shake_head_h', false)
       }
     })
+    // パスワードのinput要素にイベントを設設定
     this.form.getInputPasswordEl().addEventListener('blur', () => {
       const state = this.state
       if (!(state instanceof spine.AnimationState)) return
@@ -143,11 +146,21 @@ export class SpineApp implements spine.SpineCanvasApp {
       this.animations[1].alpha = this.animations[2].alpha = 0
     }
 
+    // if (this.form.getIsDoneInitialInput()) {
+    //   if (this.form.getIsValidUserId() && this.form.getIsValidPassword()) {
+    //     state.setAnimation(5, 'laugh', false)
+    //     state.setAnimation(6, 'kazari', true)
+    //   } else {
+    //     state.setAnimation(5, 'disappointed', false)
+    //     state.clearTrack(6)
+    //   }
+    // }
+
     if (this.form.getIsFocusPasswordEl()) {
       this.animations[1].alpha = this.animations[2].alpha = 0
       state.setAnimation(3, 'close_eye', true)
     } else {
-      state.setEmptyAnimation(3)
+      state.clearTrack(3)
     }
   }
 }
