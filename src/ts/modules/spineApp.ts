@@ -74,6 +74,7 @@ export class SpineApp implements spine.SpineCanvasApp {
     this.state.addListener(listener)
 
     // ユーザーIDのinput要素にイベントを設設定
+    // blur
     this.form.getInputUserIdEl().addEventListener('blur', () => {
       if (!(this.state instanceof spine.AnimationState)) return
 
@@ -83,9 +84,20 @@ export class SpineApp implements spine.SpineCanvasApp {
         this.state.setAnimation(4, 'shake_head_h', false)
       }
     })
+
     // パスワードのinput要素にイベントを設設定
+    // focus
+    this.form.getInputPasswordEl().addEventListener('focus', () => {
+      if (!(this.state instanceof spine.AnimationState)) return
+
+      this.animations[1].alpha = this.animations[2].alpha = 0
+      this.state.setAnimation(3, 'close_eye', true)
+    })
+    // blur
     this.form.getInputPasswordEl().addEventListener('blur', () => {
       if (!(this.state instanceof spine.AnimationState)) return
+      this.state.clearTrack(3)
+
       if (this.form.getIsValidPassword()) {
         this.state.setAnimation(4, 'shake_head_v', false)
       } else {
@@ -153,12 +165,5 @@ export class SpineApp implements spine.SpineCanvasApp {
     //     state.clearTrack(6)
     //   }
     // }
-
-    if (this.form.getIsFocusPasswordEl()) {
-      this.animations[1].alpha = this.animations[2].alpha = 0
-      state.setAnimation(3, 'close_eye', true)
-    } else {
-      state.clearTrack(3)
-    }
   }
 }
