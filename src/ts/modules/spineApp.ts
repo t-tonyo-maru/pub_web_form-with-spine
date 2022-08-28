@@ -65,10 +65,6 @@ export class SpineApp implements spine.SpineCanvasApp {
     })
 
     const listener: spine.AnimationStateListener = {
-      // start: (entry: spine.TrackEntry) => {
-      //   if (!(this.state instanceof spine.AnimationState)) return
-      //   console.log(entry.trackIndex)
-      // },
       complete: (entry: spine.TrackEntry) => {
         if (!(this.state instanceof spine.AnimationState)) return
         if (entry.trackIndex === 4) this.state.clearTrack(4)
@@ -153,14 +149,5 @@ export class SpineApp implements spine.SpineCanvasApp {
     } else {
       state.setEmptyAnimation(3)
     }
-
-    // const alpha = this.animations[1].alpha
-    // if (alpha >= 1) this.animations[1].alpha -= 0.01
-    // if (alpha <= 0) this.animations[1].alpha += 0.01
-    // console.log(delta)
-
-    // console.log(this.skeleton)
-    // console.log(this.state)
-    // console.log(this.animations)
   }
 }

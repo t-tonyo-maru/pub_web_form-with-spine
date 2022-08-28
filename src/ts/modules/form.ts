@@ -34,8 +34,9 @@ export class Form {
     this.inputUserIdEl.addEventListener('focus', () => {
       this.isFocusUserIdEl = true
     })
-    this.inputUserIdEl.addEventListener('blur', () => {
+    this.inputUserIdEl.addEventListener('blur', (event) => {
       this.isFocusUserIdEl = false
+      this.userIdValue = (event.target as HTMLInputElement).value
     })
     this.inputUserIdEl.addEventListener('keydown', (event) => {
       this.userIdValue = (event.target as HTMLInputElement).value
@@ -49,9 +50,6 @@ export class Form {
       this.isFocusPasswordEl = false
       this.passwordValue = (event.target as HTMLInputElement).value
     })
-    // this.inputPasswordEl.addEventListener('keydown', (event) => {
-    //   this.passwordValue = (event.target as HTMLInputElement).value
-    // })
   }
 
   /**
