@@ -6,11 +6,11 @@ import { Form } from './modules/form'
 
 window.onload = () => {
   // form要素を取得
-  const inputUserIdEl = document.querySelector('.js_userId') as Element
+  const inputUserNameEl = document.querySelector('.js_userName') as Element
   const inputPasswordEl = document.querySelector('.js_password') as Element
   // formをセット
   const form = new Form({
-    inputUserIdEl,
+    inputUserNameEl,
     inputPasswordEl
   })
 

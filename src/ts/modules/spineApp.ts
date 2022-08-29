@@ -7,7 +7,7 @@ export class SpineApp implements spine.SpineCanvasApp {
   private pixelRatio: number = window.devicePixelRatio || 1
   private animations: spine.TrackEntry[]
   private form: Form
-  private valueCenterNum: number = 15
+  private centerNum: number = 15
 
   constructor({ form }: { form: Form }) {
     this.form = form
@@ -46,13 +46,14 @@ export class SpineApp implements spine.SpineCanvasApp {
 
     // skeleton 情報からアニメーション情報を取得
     const stateData = new spine.AnimationStateData(skeltonData)
+    // Mixをセット
+    stateData.defaultMix = 0.1
     // アニメーションをセット
     this.state = new spine.AnimationState(stateData)
     if (!(this.state instanceof spine.AnimationState)) return
     this.animations.push(this.state.setAnimation(0, 'idle', true))
     this.animations.push(this.state.setAnimation(1, 'look_down_r', true))
     this.animations.push(this.state.setAnimation(2, 'look_down_l', true))
-
     // close_eye
     // disappointed
     // laugh
@@ -73,9 +74,8 @@ export class SpineApp implements spine.SpineCanvasApp {
 
         // 初回入力以降
         if (!this.form.getIsDoneInitialInput()) return
-        if (this.form.getIsValidUserId() && this.form.getIsValidPassword()) {
+        if (this.form.getIsValidUserName() && this.form.getIsValidPassword()) {
           this.state.setEmptyAnimation(5)
-          console.log('hogehogehoge')
         } else {
           this.state.setAnimation(5, 'disappointed', false)
         }
@@ -83,28 +83,26 @@ export class SpineApp implements spine.SpineCanvasApp {
     }
     this.state.addListener(listener)
 
-    // ユーザーIDのinput要素にイベントを設設定
+    // ユーザーネームのinput要素にイベントを設設定
     // focus
-    this.form.getInputUserIdEl().addEventListener('focus', () => {
+    this.form.getInputUserNameEl().addEventListener('focus', () => {
       if (!(this.state instanceof spine.AnimationState)) return
       this.state.setEmptyAnimation(5)
     })
     // blur
-    this.form.getInputUserIdEl().addEventListener('blur', () => {
+    this.form.getInputUserNameEl().addEventListener('blur', () => {
       if (!(this.state instanceof spine.AnimationState)) return
 
-      if (this.form.getIsValidUserId()) {
-        this.state.setAnimation(4, 'shake_head_v', false)
-      } else {
-        this.state.setAnimation(4, 'shake_head_h', false)
-      }
+      const shakeHeadAnimation = this.form.getIsValidUserName()
+        ? this.state.setAnimation(4, 'shake_head_v', false)
+        : this.state.setAnimation(4, 'shake_head_h', false)
     })
 
     // パスワードのinput要素にイベントを設設定
     // focus
     this.form.getInputPasswordEl().addEventListener('focus', () => {
       if (!(this.state instanceof spine.AnimationState)) return
-      // this.state.setEmptyAnimation(5)
+      this.state.setEmptyAnimation(5)
       this.animations[1].alpha = this.animations[2].alpha = 0
       this.state.setAnimation(3, 'close_eye', true)
     })
@@ -113,11 +111,9 @@ export class SpineApp implements spine.SpineCanvasApp {
       if (!(this.state instanceof spine.AnimationState)) return
       this.state.clearTrack(3)
 
-      if (this.form.getIsValidPassword()) {
-        this.state.setAnimation(4, 'shake_head_v', false)
-      } else {
-        this.state.setAnimation(4, 'shake_head_h', false)
-      }
+      const shakeHeadAnimation = this.form.getIsValidPassword()
+        ? this.state.setAnimation(4, 'shake_head_v', false)
+        : this.state.setAnimation(4, 'shake_head_h', false)
     })
 
     this.state.apply(this.skeleton)
@@ -128,8 +124,19 @@ export class SpineApp implements spine.SpineCanvasApp {
     if (!(this.skeleton instanceof spine.Skeleton)) return
     if (!(this.state instanceof spine.AnimationState)) return
 
+    // ユーザーネーム / パスワード入力アニメーション
+    if (this.form.getIsFocusUserNameEl()) {
+      const max = this.centerNum * 2
+      const min = 0
+      const cursorPosition = this.form.getUserNameValue().length / max - min
+
+      this.animations[1].alpha = cursorPosition >= 1 ? 1 : cursorPosition
+      this.animations[2].alpha = 1 - cursorPosition <= 0 ? 0 : 1 - cursorPosition
+    } else {
+      this.animations[1].alpha = this.animations[2].alpha = 0
+    }
+
     // アニメーションを更新
-    this.switchAnimation({ state: this.state })
     this.state.update(delta)
     this.state.apply(this.skeleton)
     this.skeleton.updateWorldTransform()
@@ -156,19 +163,5 @@ export class SpineApp implements spine.SpineCanvasApp {
     // エラーがあれば、以降が発火する
     console.log('error!!')
     console.log(canvas)
-  }
-
-  switchAnimation = ({ state }: { state: spine.AnimationState }) => {
-    // ユーザーID / パスワード入力アニメーション
-    if (this.form.getIsFocusUserIdEl()) {
-      const max = this.valueCenterNum * 2
-      const min = 0
-      const cursorPosition = this.form.getUserIdValue().length / max - min
-
-      this.animations[1].alpha = cursorPosition >= 1 ? 1 : cursorPosition
-      this.animations[2].alpha = 1 - cursorPosition <= 0 ? 0 : 1 - cursorPosition
-    } else {
-      this.animations[1].alpha = this.animations[2].alpha = 0
-    }
   }
 }
