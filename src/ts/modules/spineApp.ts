@@ -104,7 +104,7 @@ export class SpineApp implements spine.SpineCanvasApp {
       if (!(this.state instanceof spine.AnimationState)) return
       this.state.setEmptyAnimation(5)
       this.animations[1].alpha = this.animations[2].alpha = 0
-      this.state.setAnimation(3, 'close_eye', true)
+      this.state.setAnimation(3, 'close_eye', false)
     })
     // blur
     this.form.getInputPasswordEl().addEventListener('blur', () => {
