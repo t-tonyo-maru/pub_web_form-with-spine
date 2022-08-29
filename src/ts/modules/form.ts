@@ -5,26 +5,26 @@ import { getResultOfValidPassword } from './getResultOfValidPassword/getResultOf
  * input要素を制御するオブジェクトを生成する
  */
 export class Form {
-  // ユーザーID input要素
-  private inputUserIdEl: Element
+  // ユーザーネーム input要素
+  private inputUserNameEl: Element
   // パスワード input要素
   private inputPasswordEl: Element
   // input の値
-  private userIdValue: string = ''
+  private userNameValue: string = ''
   private passwordValue: string = ''
   // 入力中か
-  private isFocusUserIdEl: boolean = false
+  private isFocusUserNameEl: boolean = false
   private isFocusPasswordEl: boolean = false
   // はじめての入力が完了したか
-  private isInitialInputUserId: boolean = false
+  private isInitialInputUserName: boolean = false
   private isInitialInputPassword: boolean = false
 
   /**
-   * @param {Element} inputUserIdEl ユーザーIDのinput要素
+   * @param {Element} inputUserNameEl ユーザーネームのinput要素
    * @param {Element} inputPasswordEl パスワードのinput要素
    */
-  constructor({ inputUserIdEl, inputPasswordEl }: { inputUserIdEl: Element; inputPasswordEl: Element }) {
-    this.inputUserIdEl = inputUserIdEl
+  constructor({ inputUserNameEl, inputPasswordEl }: { inputUserNameEl: Element; inputPasswordEl: Element }) {
+    this.inputUserNameEl = inputUserNameEl
     this.inputPasswordEl = inputPasswordEl
     this.setEvent()
   }
@@ -33,18 +33,18 @@ export class Form {
    * input要素にイベントをセット
    */
   setEvent = () => {
-    // ユーザーIDのイベントセット
-    this.inputUserIdEl.addEventListener('focus', () => {
-      this.isFocusUserIdEl = true
+    // ユーザーネームのイベントセット
+    this.inputUserNameEl.addEventListener('focus', () => {
+      this.isFocusUserNameEl = true
     })
-    this.inputUserIdEl.addEventListener('blur', (event) => {
-      this.isFocusUserIdEl = false
-      this.userIdValue = (event.target as HTMLInputElement).value
+    this.inputUserNameEl.addEventListener('blur', (event) => {
+      this.isFocusUserNameEl = false
+      this.userNameValue = (event.target as HTMLInputElement).value
 
-      if (!this.isInitialInputUserId) this.isInitialInputUserId = true
+      if (!this.isInitialInputUserName) this.isInitialInputUserName = true
     })
-    this.inputUserIdEl.addEventListener('keydown', (event) => {
-      this.userIdValue = (event.target as HTMLInputElement).value
+    this.inputUserNameEl.addEventListener('keydown', (event) => {
+      this.userNameValue = (event.target as HTMLInputElement).value
     })
 
     // パスワードのイベントセット
@@ -63,14 +63,14 @@ export class Form {
    * input 要素を取得
    * @return {Element}
    */
-  getInputUserIdEl = () => this.inputUserIdEl
+  getInputUserNameEl = () => this.inputUserNameEl
   getInputPasswordEl = () => this.inputPasswordEl
 
   /**
-   * ユーザーIDを入力中かを取得
+   * ユーザーネームを入力中かを取得
    * @return {boolean}
    */
-  getIsFocusUserIdEl = () => this.isFocusUserIdEl
+  getIsFocusUserNameEl = () => this.isFocusUserNameEl
   /**
    * パスワードを入力中かを取得
    * @return {boolean}
@@ -78,10 +78,10 @@ export class Form {
   getIsFocusPasswordEl = () => this.isFocusPasswordEl
 
   /**
-   * ユーザーIDの値を取得
+   * ユーザーネームの値を取得
    * @return {boolean}
    */
-  getUserIdValue = () => this.userIdValue
+  getUserNameValue = () => this.userNameValue
   /**
    * パスワードの値を取得
    * @return {boolean}
@@ -89,10 +89,10 @@ export class Form {
   getPasswordValue = () => this.passwordValue
 
   /**
-   * ユーザーIDのバリデーション結果を取得
+   * ユーザーネームのバリデーション結果を取得
    * @return {boolean}
    */
-  getIsValidUserId = () => this.userIdValue.length > 0
+  getIsValidUserName = () => this.userNameValue.length > 0
   /**
    * パスワードのバリデーション結果を取得
    * @return {boolean}
@@ -100,8 +100,8 @@ export class Form {
   getIsValidPassword = () => getResultOfValidPassword(this.passwordValue)
 
   /**
-   * ユーザーID/パスワードのはじめての入力が完了したか
+   * ユーザーネーム/パスワードのはじめての入力が完了したか
    * @return {boolean}
    */
-  getIsDoneInitialInput = () => this.isInitialInputUserId && this.isInitialInputPassword
+  getIsDoneInitialInput = () => this.isInitialInputUserName && this.isInitialInputPassword
 }
