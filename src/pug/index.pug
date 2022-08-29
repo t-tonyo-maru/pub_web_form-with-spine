@@ -15,14 +15,15 @@ block body
         .ly_form_inner
           .bl_formItem
             label.bl_formItem_label(for="name") User Name
-            input.bl_formItem_input.js_userId(
+            span.bl_formItem_cap User Name is required.
+            input.bl_formItem_input.js_userName(
                 type="text"
                 id="name"
                 placeholder="Input user name"
               )
           .bl_formItem
             label.bl_formItem_label(for="password") Password
-            span.bl_formItem_cap 半角の大小英文字、数字を組み合わせた8文字以上のパスワードを入力してください
+            span.bl_formItem_cap Passwords must be at least 8 characters including a number and a lowercase letter.
             input.bl_formItem_input.js_password(
                 type="password"
                 id="password"

@@ -11,7 +11,7 @@ describe('test: getResultOfValidPassword', () => {
   })
 
   it('英大文字が存在しない場合', () => {
-    expect(getResultOfValidPassword('a1ss0x1nvmrkgs6')).toBe(false)
+    expect(getResultOfValidPassword('a1ss0x1nvmrkgs6')).toBe(true)
   })
 
   it('英小文字が存在しない場合', () => {
