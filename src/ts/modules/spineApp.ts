@@ -74,8 +74,11 @@ export class SpineApp implements spine.SpineCanvasApp {
 
         // 初回入力以降
         if (!this.form.getIsDoneInitialInput()) return
+        this.state.setEmptyAnimation(5)
+        this.state.setEmptyAnimation(6)
         if (this.form.getIsValidUserName() && this.form.getIsValidPassword()) {
-          this.state.setEmptyAnimation(5)
+          this.state.setAnimation(5, 'laugh', false)
+          this.state.setAnimation(6, 'kazari', true)
         } else {
           this.state.setAnimation(5, 'disappointed', false)
         }
@@ -88,6 +91,7 @@ export class SpineApp implements spine.SpineCanvasApp {
     this.form.getInputUserNameEl().addEventListener('focus', () => {
       if (!(this.state instanceof spine.AnimationState)) return
       this.state.setEmptyAnimation(5)
+      this.state.setEmptyAnimation(6)
     })
     // blur
     this.form.getInputUserNameEl().addEventListener('blur', () => {
@@ -103,6 +107,7 @@ export class SpineApp implements spine.SpineCanvasApp {
     this.form.getInputPasswordEl().addEventListener('focus', () => {
       if (!(this.state instanceof spine.AnimationState)) return
       this.state.setEmptyAnimation(5)
+      this.state.setEmptyAnimation(6)
       this.animations[1].alpha = this.animations[2].alpha = 0
       this.state.setAnimation(3, 'close_eye', false)
     })
