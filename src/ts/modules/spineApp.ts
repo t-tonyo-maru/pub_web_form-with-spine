@@ -133,10 +133,10 @@ export class SpineApp implements spine.SpineCanvasApp {
     if (this.form.getIsFocusUserNameEl()) {
       const max = this.centerNum * 2
       const min = 0
-      const cursorPosition = this.form.getUserNameValue().length / max - min
+      const caretPosition = this.form.getUserNameValue().length / max - min
 
-      this.animations[1].alpha = cursorPosition >= 1 ? 1 : cursorPosition
-      this.animations[2].alpha = 1 - cursorPosition <= 0 ? 0 : 1 - cursorPosition
+      this.animations[1].alpha = caretPosition >= 1 ? 1 : caretPosition
+      this.animations[2].alpha = 1 - caretPosition <= 0 ? 0 : 1 - caretPosition
     } else {
       this.animations[1].alpha = this.animations[2].alpha = 0
     }
