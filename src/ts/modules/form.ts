@@ -2,7 +2,7 @@
 import { getResultOfValidPassword } from './getResultOfValidPassword/getResultOfValidPassword'
 
 /**
- * input要素を制御するオブジェクトを生成する
+ * input要素を管理するオブジェクトを生成する
  */
 export class Form {
   // ユーザーネーム input要素
