@@ -15,38 +15,38 @@ export class SpineApp implements spine.SpineCanvasApp {
   }
 
   loadAssets = (canvas: spine.SpineCanvas) => {
-    // atlas ファイルをロード
+    // atlasファイルをロード
     canvas.assetManager.loadTextureAtlas('model.atlas')
-    // skeleton(json 形式) をロード
+    // skeletonをロード
     canvas.assetManager.loadJson('model.json')
   }
 
   initialize = (canvas: spine.SpineCanvas) => {
-    // spine のアセットマネージャーを取得
+    // spine アセットマネージャーを取得
     const assetManager = canvas.assetManager
 
     // テクスチャアトラスを生成
     const atlas = canvas.assetManager.require('model.atlas')
-    // AtlasAttachmentLoader（リージョン、メッシュ、バウンディングボックス、パスのアタッチメントを解決するための要素）のインスタンスを生成
+    // AtlasAttachmentLoader インスタンスを生成
     const atlasLoader = new spine.AtlasAttachmentLoader(atlas)
-    // skeleton(json 形式) を読み込むためのオブジェクトを生成
+    // skeletonを読み込むためのオブジェクトを生成
     const skeltonJson = new spine.SkeletonJson(atlasLoader)
-    // skeleton 情報を読み込み
+    // skeleton情報を読み込み
     const skeltonData = skeltonJson.readSkeletonData(assetManager.require('model.json'))
-    // skeleton インスタンスを生成して、メンバにセット
+    // skeletonインスタンスを生成してメンバにセット
     this.skeleton = new spine.Skeleton(skeltonData)
 
     if (!(this.skeleton instanceof spine.Skeleton)) return
-    // skeleton の大きさを等倍にセット
+    // skeletonの大きさを等倍にセット
     this.skeleton.scaleX = 0.7 * this.pixelRatio
     this.skeleton.scaleY = 0.7 * this.pixelRatio
-    // skeleton の位置をセット
+    // skeletonの位置をセット
     this.skeleton.x = 0
     this.skeleton.y = (-1 * Math.floor(this.skeleton.data.height * 1.06 * this.pixelRatio)) / 2
 
-    // skeleton 情報からアニメーション情報を取得
+    // アニメーション情報を取得
     const stateData = new spine.AnimationStateData(skeltonData)
-    // Mixをセット
+    // デフォルトのMixをセット
     stateData.defaultMix = 0.1
     // アニメーションをセット
     this.state = new spine.AnimationState(stateData)
@@ -54,13 +54,8 @@ export class SpineApp implements spine.SpineCanvasApp {
     this.animations.push(this.state.setAnimation(0, 'idle', true))
     this.animations.push(this.state.setAnimation(1, 'look_down_r', true))
     this.animations.push(this.state.setAnimation(2, 'look_down_l', true))
-    // close_eye
-    // disappointed
-    // laugh
-    // shake_head_h
-    // shake_head_v
-    // kazari
 
+    // look_down_r, look_down_lのアルファ値を0にする
     this.animations.forEach((animation, index) => {
       if (index !== 0) animation.alpha = 0
     })
@@ -86,7 +81,7 @@ export class SpineApp implements spine.SpineCanvasApp {
     }
     this.state.addListener(listener)
 
-    // ユーザーネームのinput要素にイベントを設設定
+    // ユーザーネームのinput要素にイベントを設定
     // focus
     this.form.getInputUserNameEl().addEventListener('focus', () => {
       if (!(this.state instanceof spine.AnimationState)) return
@@ -102,7 +97,7 @@ export class SpineApp implements spine.SpineCanvasApp {
         : this.state.setAnimation(4, 'shake_head_h', false)
     })
 
-    // パスワードのinput要素にイベントを設設定
+    // パスワードのinput要素にイベントを設定
     // focus
     this.form.getInputPasswordEl().addEventListener('focus', () => {
       if (!(this.state instanceof spine.AnimationState)) return
@@ -129,8 +124,9 @@ export class SpineApp implements spine.SpineCanvasApp {
     if (!(this.skeleton instanceof spine.Skeleton)) return
     if (!(this.state instanceof spine.AnimationState)) return
 
-    // ユーザーネーム / パスワード入力アニメーション
+    // ユーザーネーム入力アニメーション
     if (this.form.getIsFocusUserNameEl()) {
+      // ユーザーネーム入力中の場合
       const max = this.centerNum * 2
       const min = 0
       const caretPosition = this.form.getUserNameValue().length / max - min
@@ -138,6 +134,7 @@ export class SpineApp implements spine.SpineCanvasApp {
       this.animations[1].alpha = caretPosition >= 1 ? 1 : caretPosition
       this.animations[2].alpha = 1 - caretPosition <= 0 ? 0 : 1 - caretPosition
     } else {
+      // ユーザーネームを入力していない場合
       this.animations[1].alpha = this.animations[2].alpha = 0
     }
 
@@ -165,7 +162,6 @@ export class SpineApp implements spine.SpineCanvasApp {
   }
 
   error = (canvas: spine.SpineCanvas) => {
-    // エラーがあれば、以降が発火する
     console.log('error!!')
     console.log(canvas)
   }
