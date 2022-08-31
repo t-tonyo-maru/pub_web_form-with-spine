@@ -10,13 +10,13 @@ block body
   #wrapper.ly_wrapper
     main.ly_main
       .bl_canvas_wrapper
-        canvas.bl_canvas.js_canvas
+        canvas.bl_canvas.js-canvas
       form.ly_form.js_form
         .ly_form_inner
           .bl_formItem
             label.bl_formItem_label(for="name") User Name
             span.bl_formItem_cap User Name is required.
-            input.bl_formItem_input.js_userName(
+            input.bl_formItem_input.js-userName(
                 type="text"
                 id="name"
                 placeholder="Input user name"
@@ -24,7 +24,7 @@ block body
           .bl_formItem
             label.bl_formItem_label(for="password") Password
             span.bl_formItem_cap Passwords must be at least 8 characters including a number and a lowercase letter.
-            input.bl_formItem_input.js_password(
+            input.bl_formItem_input.js-password(
                 type="password"
                 id="password"
                 placeholder="Input password"
